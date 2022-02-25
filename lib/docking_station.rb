@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+require 'bike'
 
 class DockingStation
   attr_reader :bikes
@@ -39,17 +39,5 @@ class DockingStation
 
   def full?
     @bikes.size >= @capacity
-  end
-end
-
-class Bike
-  attr_accessor :status
-  
-  def initialize
-    @status = true
-  end
-
-  def working?
-    @status == true
   end
 end

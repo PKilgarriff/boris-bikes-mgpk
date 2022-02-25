@@ -4,7 +4,7 @@ require 'docking_station'
 
 describe DockingStation do
   let(:station) { DockingStation.new }
-  let(:bike) { Bike.new }
+  let(:bike) { double(Bike, working?: true, status: true) }
 
   it 'responds to release_bike' do
     expect(station).to respond_to :release_bike
@@ -13,12 +13,7 @@ describe DockingStation do
   it 'releases the bike' do
     station.dock_bike(bike)
     released_bike = station.release_bike
-    p released_bike
     expect(released_bike).to be_working
-  end
-
-  it 'pass bike to a docking station' do
-    expect(bike).to be_an_instance_of(Bike)
   end
 
   it 'dock_bike is working' do
