@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DockingStation
   attr_reader :bikes
 
@@ -7,18 +9,18 @@ class DockingStation
   end
 
   def release_bike
-    return Bike.new
+    Bike.new
   end
 
   def dock_bike(cupcake)
     p cupcake
-    cupcake = "Bonjour"
+    cupcake = 'Bonjour'
     p cupcake
   end
 end
 
 class Bike
   def working?
-    return true
+    true
   end
 end

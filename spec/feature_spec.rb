@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'boris_bikes'
 
 describe 'using a docking station' do
@@ -13,5 +15,4 @@ describe 'using a docking station' do
     station.dock_bike(bike)
     expect(station.bikes[0].instance_of?(Bike)).to eq true
   end
-
 end

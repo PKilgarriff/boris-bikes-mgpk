@@ -1,34 +1,55 @@
+# frozen_string_literal: true
+
 class DockingStation
   attr_reader :bikes
+
   # RIP "Pendleton"
+  # RIP "Pendleton 2"
 
-    def initialize
-      @bikes = []
-    end
-  
-    def release_bike
-      fail "No bikes" if empty?
-			@bikes.pop
-    end
-  
-    def dock_bike(bike_from_outside)
-      fail "It's full!" if full?
-      @bikes << bike_from_outside
-    end
+  DEFAULT_CAPACITY = 20
 
-    private
-
-    def empty?
-			@bikes.empty?
-    end
-
-		def full?
-			@bikes.size >= 20
-		end
+  def initialize(capacity = DEFAULT_CAPACITY)
+    @capacity = capacity
+    @bikes = []
   end
-  
-  class Bike
-    def working?
-      true
-    end
+
+  def release_bike
+    raise 'No bikes' if empty?
+    raise 'The bike is broken' if @bikes.last.status == false
+
+    @bikes.pop
   end
+
+  def dock_bike(bike_from_outside, *broken)
+    raise "It's full!" if full?
+
+    report_broken(bike_from_outside) unless broken.empty?
+    @bikes << bike_from_outside
+  end
+
+  private
+
+  def report_broken(bike)
+    bike.status = (false)
+  end
+
+  def empty?
+    @bikes.empty?
+  end
+
+  def full?
+    @bikes.size >= @capacity
+  end
+end
+
+class Bike
+  attr_accessor :status
+  
+  def initialize
+    @status = true
+  end
+
+  def working?
+    @status == true
+  end
+end
