@@ -1,30 +1,78 @@
-require 'boris_bikes'
+require 'docking_station'
 
 describe DockingStation do
   it "responds to release_bike" do
-    expect(subject.respond_to?(:release_bike)).to eq true
+    bike = DockingStation.new
+    expect(bike).to respond_to :release_bike
   end
 
-  it 'responds to dock_bike' do
-    expect(subject.respond_to?(:dock_bike)).to eq true
+  it "releases the bike" do
+    station = DockingStation.new
+    input_bike = Bike.new
+    station.dock_bike(input_bike)
+    bike = station.release_bike
+    expect(bike).to be_working
   end
 
-  it 'responds to bikes' do
-    expect(subject.respond_to?(:bikes)).to eq true
+  it "pass bike to a docking station" do
+    bike = Bike.new
+    # bikes = DockingStation.new
+    expect(bike).to be_an_instance_of(Bike)
   end
 
-  it "returns an array of bikes when bikes called" do
-    expect(subject.bikes.instance_of?(Array)).to eq true 
+  it "dock_bike is working" do
+    station = DockingStation.new
+    bike = Bike.new
+    expect { station.dock_bike(bike) }.to_not raise_error
+  end
+  
+  it "docks the bike" do
+    station = DockingStation.new
+    bike = Bike.new
+    station.dock_bike(bike)
+    expect(station.bikes).to include(bike)
   end
 
-  it "returns a Bike when requested" do
-    expect(subject.release_bike.instance_of?(Bike)).to eq true 
+  it "returns true if the bikes is empty" do 
+    station = DockingStation.new
+    expect(station.empty?).to be true
   end
 
-  it 'releases the same bike that has just been docked' do
-    # we put in a bike
-    # we have some way of identifying that bike ?object id
-    # we ask for a bike 
-    # we check if it is the same bike (use identifier from above)
+  it "release_bike raises an error when the bikes is empty" do
+    station = DockingStation.new
+    expect { station.release_bike }.to raise_error("No bikes")
   end
+
+  it "returns true if the bikes is full" do 
+    station = DockingStation.new
+    input_bike = Bike.new
+    20.times { station.dock_bike(input_bike) }
+    expect(station.full?).to be true
+  end
+
+  it "returns false if the bikes is not full" do 
+    station = DockingStation.new
+    expect(station.full?).to be false
+  end
+
+  it "release_bike raises an error when the bikes is full" do
+    station = DockingStation.new
+    expect { 21.times { station.dock_bike("cupcake") } }.to raise_error("It's full!")
+  end
+
 end
+
+# ### For IRB ###
+# require file
+# create a new docking station
+# create a bike
+# release the bike
+# raise an error if the bikes is empty
+
+
+# compare the released bike to see if it's the same one that was docked
+
+# # what is and how to use a guard condition
+# # how does ruby raise errors
+# # how to use a fail or raise keyword in our lib code
+# # how do we test for errors in rspec

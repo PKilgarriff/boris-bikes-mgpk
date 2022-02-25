@@ -2,6 +2,7 @@ class DockingStation
   attr_reader :bikes
 
   def initialize
+    @bike = Bike.new
     @bikes = [Bike.new]
   end
 
