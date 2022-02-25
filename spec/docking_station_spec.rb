@@ -1,65 +1,56 @@
 require 'docking_station'
 
 describe DockingStation do
+  let(:station) { DockingStation.new }
+  let(:bike) {Bike.new}
+
   it "responds to release_bike" do
-    bike = DockingStation.new
-    expect(bike).to respond_to :release_bike
+    expect(station).to respond_to :release_bike
   end
 
   it "releases the bike" do
-    station = DockingStation.new
-    input_bike = Bike.new
-    station.dock_bike(input_bike)
-    bike = station.release_bike
-    expect(bike).to be_working
+    station.dock_bike(bike)
+    released_bike = station.release_bike
+    expect(released_bike).to be_working
   end
 
   it "pass bike to a docking station" do
-    bike = Bike.new
-    # bikes = DockingStation.new
     expect(bike).to be_an_instance_of(Bike)
   end
 
   it "dock_bike is working" do
-    station = DockingStation.new
-    bike = Bike.new
     expect { station.dock_bike(bike) }.to_not raise_error
   end
   
   it "docks the bike" do
-    station = DockingStation.new
-    bike = Bike.new
     station.dock_bike(bike)
     expect(station.bikes).to include(bike)
   end
 
-  it "returns true if the bikes is empty" do 
-    station = DockingStation.new
-    expect(station.empty?).to be true
-  end
+  # (disabled tests due to inaccessible private methods)
+
+  # it "returns true if the bikes is empty" do 
+  #   expect(station.empty?).to be true
+  # end
 
   it "release_bike raises an error when the bikes is empty" do
-    station = DockingStation.new
     expect { station.release_bike }.to raise_error("No bikes")
   end
 
-  it "returns true if the bikes is full" do 
-    station = DockingStation.new
-    input_bike = Bike.new
-    20.times { station.dock_bike(input_bike) }
-    expect(station.full?).to be true
-  end
+  # (disabled tests due to inaccessible private methods)
 
-  it "returns false if the bikes is not full" do 
-    station = DockingStation.new
-    expect(station.full?).to be false
-  end
+  # it "returns true if the bikes is full" do 
+  #   20.times { station.dock_bike(bike) }
+  #   expect(station.full?).to be true
+  # end
+
+  # it "returns false if the bikes is not full" do 
+  #   expect(station.full?).to be false
+  # end
 
   it "release_bike raises an error when the bikes is full" do
-    station = DockingStation.new
-    expect { 21.times { station.dock_bike("cupcake") } }.to raise_error("It's full!")
+    expect { 100000000000000.times { station.dock_bike("cupcake") } }.to raise_error("It's full!")
   end
-
 end
 
 # ### For IRB ###
