@@ -4,7 +4,7 @@ require 'docking_station'
 
 describe DockingStation do
   let(:station) { DockingStation.new }
-  let(:bike) { double(Bike, working?: true, status: true) }
+  let(:bike) { double(Bike, working?: true) }
 
   before(:each) { allow(bike).to receive(:status=).with(false) }
 
@@ -76,8 +76,30 @@ describe DockingStation do
     expect { station.release_bike }.to raise_error('The bike is broken')
   end
 
+  # it "releases a working bike even if there are broken bikes in the station" do
+  #   station.dock_bike(bike)
+  #   allow(bike).to receive(:working?).and_return (false)
+  #   station.dock_bike(bike, true)
+  #   expect { station.release_bike }.not_to raise_error
+  # end
+
   it 'docks the bike even if it is broken' do
     station.dock_bike(bike, true)
+    allow(bike).to receive(:working?).and_return (false)
+    expect(station.bikes).to include(bike)
+  end
+
+  it 'sends away broken bikes to a garage' do
+    station.dock_bike(bike, true)
+    allow(bike).to receive(:working?).and_return (false)
+    station.send_broken_to_garage(bike)
+    expect(station.bikes).not_to include(bike)
+  end
+
+  it 'receives fixed bikes from a garage' do
+    station.dock_bike(bike, true)
+    station.send_broken_to_garage(bike)
+    station.receive_fixed_from_garage(bike)
     expect(station.bikes).to include(bike)
   end
 end

@@ -11,6 +11,7 @@ class DockingStation
   def initialize(capacity = DEFAULT_CAPACITY)
     @capacity = capacity
     @bikes = []
+    @garage = []
   end
 
   def release_bike
@@ -25,6 +26,14 @@ class DockingStation
 
     report_broken(bike_from_outside) unless broken.empty?
     @bikes << bike_from_outside
+  end
+
+  def receive_fixed_from_garage(bike)
+    @bikes << @garage.pop
+  end
+
+  def send_broken_to_garage(bike)
+    @garage << @bikes.pop
   end
 
   private
