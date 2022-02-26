@@ -1,13 +1,21 @@
 # require 'docking_station'
 
 class Garage
-  attr_reader :garage
+  attr_reader :storage, :fixed_bikes
   
   def initialize
-    @garage = []
+    @storage = []
+    @fixed_bikes = []
   end
 
   def receive_bike(bike)
-    @garage << bike
+    @storage << bike
+  end
+
+  def fix
+    @fixed_bikes = @storage.each do |bike|
+      bike.status=(true)
+    end.clone
+    @storage.clear
   end
 end
