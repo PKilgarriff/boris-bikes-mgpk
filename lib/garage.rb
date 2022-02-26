@@ -18,4 +18,10 @@ class Garage
     end.clone
     @storage.clear
   end
+
+  def release_fixed
+    fixed = @fixed_bikes.clone
+    @fixed_bikes.clear
+    fixed
+  end
 end

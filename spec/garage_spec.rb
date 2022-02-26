@@ -21,4 +21,11 @@ describe Garage do
     garage.fix
     expect(garage.fixed_bikes).to_not be_empty
   end
+
+  it "releases fixed bikes" do
+    garage.receive_bike(bike)
+    garage.fix
+    garage.release_fixed
+    expect(garage.fixed_bikes).to be_empty
+  end
 end
