@@ -70,11 +70,11 @@ describe DockingStation do
     expect(bike.working?).to be false
   end
 
-  it 'does not release a bike if it is broken' do
-    station.dock_bike(bike, true)
-    allow(bike).to receive(:working?).and_return (false)
-    expect { station.release_bike }.to raise_error('The bike is broken')
-  end
+  # it 'does not release a bike if it is broken' do
+  #   station.dock_bike(bike, true)
+  #   allow(bike).to receive(:working?).and_return (false)
+  #   expect { station.release_bike }.to raise_error('The bike is broken')
+  # end
 
   # it "releases a working bike even if there are broken bikes in the station" do
   #   station.dock_bike(bike)
@@ -86,7 +86,7 @@ describe DockingStation do
   it 'docks the bike even if it is broken' do
     station.dock_bike(bike, true)
     allow(bike).to receive(:working?).and_return (false)
-    expect(station.bikes).to include(bike)
+    expect(station.broken_bikes).to include(bike)
   end
 
   it 'sends away broken bikes to a garage' do
@@ -99,7 +99,7 @@ describe DockingStation do
   it 'receives fixed bikes from a garage' do
     station.dock_bike(bike, true)
     station.send_broken_to_garage(bike)
-    station.receive_fixed_from_garage(bike)
+    station.dock_bike(bike)
     expect(station.bikes).to include(bike)
   end
 end
