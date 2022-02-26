@@ -2,7 +2,6 @@ require 'bike'
 
 class DockingStation
   attr_reader :bikes, :broken_bikes
-
   # RIP "Pendleton"
   # RIP "Pendleton 2"
 
@@ -35,6 +34,12 @@ class DockingStation
 
   def send_broken_to_garage(bike)
     @broken_bikes << @bikes.pop
+  end
+
+  def release_broken_to_van
+    released = @broken_bikes.clone
+    @broken_bikes.clear
+    released
   end
 
   private
