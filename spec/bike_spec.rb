@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'boris_bikes'
+require 'bike'
 
 describe Bike do
   let(:bike) { Bike.new }
