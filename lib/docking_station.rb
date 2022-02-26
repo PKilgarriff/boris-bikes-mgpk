@@ -1,9 +1,10 @@
+# This program is dedicated to the fictional but sadly deceased dog Pendleton
+# RIP Pendleton, you will be missed
+
 require 'bike'
 
 class DockingStation
   attr_reader :bikes, :broken_bikes
-  # RIP "Pendleton"
-  # RIP "Pendleton 2"
 
   DEFAULT_CAPACITY = 20
 
@@ -15,7 +16,6 @@ class DockingStation
 
   def release_bike
     raise 'No bikes' if empty?
-    # raise 'The bike is broken' if @bikes.last.working? == false
 
     @bikes.pop
   end
@@ -30,10 +30,6 @@ class DockingStation
       @bikes << bike_from_outside
     end
 
-  end
-
-  def send_broken_to_garage(bike)
-    @broken_bikes << @bikes.pop
   end
 
   def release_broken_to_van

@@ -11,7 +11,7 @@ class Van
   end
 
   def deliver_broken_to_garage(garage)
-    garage.receive_bike(@trunk)
+    @trunk.each { |bike| garage.receive_bike(bike)}
     @trunk.clear
   end
 

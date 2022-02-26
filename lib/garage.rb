@@ -1,5 +1,3 @@
-# require 'docking_station'
-
 class Garage
   attr_reader :storage, :fixed_bikes
   
