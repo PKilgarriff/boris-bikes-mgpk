@@ -6,6 +6,8 @@ describe DockingStation do
   let(:station) { DockingStation.new }
   let(:bike) { double(Bike, working?: true, status: true) }
 
+  before(:each) { allow(bike).to receive(:status=).with(false) }
+
   it 'responds to release_bike' do
     expect(station).to respond_to :release_bike
   end
@@ -64,11 +66,13 @@ describe DockingStation do
 
   it 'updates the status of a bike when reported broken' do
     station.dock_bike(bike, true)
+    allow(bike).to receive(:working?).and_return (false)
     expect(bike.working?).to be false
   end
 
   it 'does not release a bike if it is broken' do
     station.dock_bike(bike, true)
+    allow(bike).to receive(:working?).and_return (false)
     expect { station.release_bike }.to raise_error('The bike is broken')
   end
 

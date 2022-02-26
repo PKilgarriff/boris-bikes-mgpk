@@ -15,7 +15,7 @@ class DockingStation
 
   def release_bike
     raise 'No bikes' if empty?
-    raise 'The bike is broken' if @bikes.last.status == false
+    raise 'The bike is broken' if @bikes.last.working? == false
 
     @bikes.pop
   end
@@ -30,7 +30,7 @@ class DockingStation
   private
 
   def report_broken(bike)
-    bike.status = (false)
+    bike.status=(false)
   end
 
   def empty?
