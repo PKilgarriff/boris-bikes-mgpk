@@ -14,4 +14,15 @@ class Van
     garage.receive_bike(@trunk)
     @trunk.clear
   end
+
+  def pick_up_fixed_bikes(garage)
+		@trunk = garage.release_fixed
+	end
+
+	def deliver_fixed_bikes(station)
+		@trunk.each do |bike|
+			station.dock_bike(bike)
+		end
+		@trunk.clear
+	end
 end
